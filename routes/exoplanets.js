@@ -31,9 +31,12 @@ router.get('/', function (req, res, next) {
 router.post('/add', upload.single('imageExoplanet'), function (req, res, next) {
     console.log("POST ADD EXOPLANET");
     // validate name of explanet -> betweeen 3 and 100 character
+
     if (validator.isLength(req.body.uniqueNameExoplanet, { min: 3, max: 100 })) {
         console.log("req.file : " + JSON.stringify(req.file));
         let filename = null;
+
+        
         // req.file must be undefined if no file given
         if (req.file === undefined) filename = null;
         else filename = 'images/' + req.file.filename;
@@ -124,6 +127,7 @@ router.post('/update', function (req, res, next) {
 
     res.redirect('/exoplanets');
 });
+
 
 
 module.exports = router;
