@@ -34,6 +34,7 @@ router.post('/add', upload.single('imageExoplanet'), function (req, res, next) {
     if (validator.isLength(req.body.uniqueNameExoplanet, { min: 3, max: 100 })) {
         console.log("req.file : " + JSON.stringify(req.file));
         let filename = null;
+    
         // req.file must be undefined if no file given
         filename = imageFunction(req, filename, res);
     }
