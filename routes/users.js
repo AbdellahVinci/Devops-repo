@@ -24,7 +24,8 @@ router.post('/login', (req, res, next) => {
     console.log("User found" + JSON.stringify(userFound));
     if (userFound) {
         if (userFound.active == false) {
-            invalidePassword(req, res);
+            req.session.errors = "Compte désactivé";
+            res.redirect('/users');
         }
         else {
             if (bcrypt.compareSync(req.body.userPassword, userFound.password)) {
@@ -40,9 +41,7 @@ router.post('/login', (req, res, next) => {
                 }
             }
             else {
-                console.log("bad password");
-                req.session.errors = "Mot de passe incorrect";
-                res.redirect('/users');
+                manageIncorrectPassword(req, res);
             }
         }
     }
@@ -96,7 +95,8 @@ router.post('/add', (req, res, next) => {
 
 module.exports = router;
 
-function invalidePassword(req, res) {
-    req.session.errors = "Compte désactivé";
+function manageIncorrectPassword(req, res) {
+    console.log("bad password");
+    req.session.errors = "Mot de passe incorrect";
     res.redirect('/users');
 }
