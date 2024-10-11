@@ -110,6 +110,7 @@ router.post('/update', function (req, res, next) {
 });
 
 
+
 module.exports = router;
 function manageValideName(req, res) {
     if (validator.isLength(req.body.uniqueNameExoplanet, { min: 3, max: 100 })) {
