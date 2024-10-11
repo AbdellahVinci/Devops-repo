@@ -117,17 +117,21 @@ function manageValideName(req, res) {
         let filename = null;
         // req.file must be undefined if no file given
         filename = manageValideImage(req, filename);
-        Exoplanet.save({
-            uniqueName: req.body.uniqueNameExoplanet,
-            hClass: req.body.hClassExoplanet,
-            discoveryYear: req.body.discoveryYearExoplanet,
-            image: filename
-        });
-        res.redirect('/exoplanets');
+        manageSaveFunction(req, filename, res);
     }
     else {
         res.redirect('/exoplanets?errors= Le nom d\'une exoplanète doit faire entre 3 et 100 caractères');
     }
+}
+
+function manageSaveFunction(req, filename, res) {
+    Exoplanet.save({
+        uniqueName: req.body.uniqueNameExoplanet,
+        hClass: req.body.hClassExoplanet,
+        discoveryYear: req.body.discoveryYearExoplanet,
+        image: filename
+    });
+    res.redirect('/exoplanets');
 }
 
 function manageValideImage(req, filename) {
