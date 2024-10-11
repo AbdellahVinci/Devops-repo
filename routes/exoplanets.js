@@ -116,8 +116,7 @@ function manageValideName(req, res) {
         console.log("req.file : " + JSON.stringify(req.file));
         let filename = null;
         // req.file must be undefined if no file given
-        if (req.file === undefined) filename = null;
-        else filename = 'images/' + req.file.filename;
+        filename = manageValideImage(req, filename);
         Exoplanet.save({
             uniqueName: req.body.uniqueNameExoplanet,
             hClass: req.body.hClassExoplanet,
@@ -129,5 +128,11 @@ function manageValideName(req, res) {
     else {
         res.redirect('/exoplanets?errors= Le nom d\'une exoplanète doit faire entre 3 et 100 caractères');
     }
+}
+
+function manageValideImage(req, filename) {
+    if (req.file === undefined) filename = null;
+    else filename = 'images/' + req.file.filename;
+    return filename;
 }
 
